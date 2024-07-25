@@ -1,0 +1,70 @@
+﻿@model AccountManagement.Application.Contracts.Account.CreateAccount;
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">ایجاد حساب جدید</h5>
+            </div>
+            <div id="modal-body" class="modal-body">
+                <form class="form-group" method="post" asp-page="./Index" asp-page-handler="Create"
+                      data-ajax="true"
+                      data-action="refresh">
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+                            <label class="control-label" asp-for="@Model.FullName">نام و نام خانوادگی</label>
+                            <input class="form-control" asp-for="@Model.FullName" type="text" />
+                            <span asp-validation-for="@Model.FullName" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="control-label" asp-for="@Model.PhoneNumber">شماره تلفن همراه</label>
+                            <input class="form-control" asp-for="@Model.PhoneNumber" type="tel" />
+                            <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+
+                        </div>
+                        <div class="col-md-6">
+
+                            <label class="control-label" asp-for="@Model.RoleId">نقش کاربر</label>
+                            <select class="form-control" asp-for="@Model.RoleId"  asp-items='new SelectList(Model.Roles,"Id","Name")'>
+                                <option value="0">انتخاب نقش کاربر</option>
+                            </select>
+                            <span asp-validation-for="@Model.RoleId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+
+                            <label class="control-label" asp-for="@Model.Username">نام کاربری</label>
+                            <input class="form-control" asp-for="@Model.Username" type="text" />
+                            <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+
+                            <label class="control-label" asp-for="@Model.Password">رمز عبور</label>
+                            <input class="form-control" asp-for="@Model.Password" type="password" />
+                            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+
+                            <label class="control-label" asp-for="@Model.ConfirmPassword">تکرار رمز عبور</label>
+                            <input class="form-control" asp-for="@Model.ConfirmPassword" type="password" />
+                            <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                        <button type="submit" class="btn btn-primary">ایجاد</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>

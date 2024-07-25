@@ -1,0 +1,97 @@
+﻿@page
+@model ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts.IndexModel;
+@{
+    ViewData["Title"] = "CustomerDiscounts";
+}
+<link rel="stylesheet" href="~/AdminTheme/assets/datatables/jquery.dataTables.min.css" />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">جستجو در تخفیف ها</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline" role="form" method="get">
+                    <div class="form-group">
+                        <label class="sr-only" asp-for="SearchModel.Reason"></label>
+                        <input class="form-control" value="@Model.SearchModel.Reason" name="Reason" placeholder="توضیح تخفیف">
+
+
+                        <label class="sr-only" asp-for="SearchModel.ProductId"></label>
+                        <select class="form-control" value="@Model.SearchModel.ProductId" asp-items="@Model.Products" name="ProductId" placeholder="نام محصول">
+                            <option value="0">یک محصول را انتخاب نمایید</option>
+                        </select>
+
+                        <label asp-for="SearchModel.StartDate"></label>
+                        <input class="form-control persian-date-input" asp-for="SearchModel.StartDate" name="StartDate" placeholder="تاریخ شروع تخفیف">
+
+                        <label asp-for="SearchModel.EndDate"></label>
+                        <input class="form-control persian-date-input" asp-for="SearchModel.EndDate" name="EndDate" placeholder="تاریخ پایان تخفیف">
+
+
+                    </div>
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
+                    <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel">
+    <div class="panel-heading">
+        <a class=" btn btn-success" href='#showmodal=@Url.Page("./Index","Create")'><i class="fa fa-plus"></i>&nbsp; ایجاد</a>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped" id="datatable">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>نام محصول</th>
+                    <th>علت تخفیف</th>
+                    <th>درصد تخفیف</th>
+                    <th>تاریخ شروع</th>
+                    <th>تاریخ پایان</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.ProductName</td>
+                        <td>@item.Reason</td>
+                        <td>@item.DiscountPercentage</td>
+                        <td>@item.StartDateFa</td>
+                        <td>@item.EndDateFa</td>
+                        <td>
+                            <a class="btn tbn-sm btn-warning" href='#showmodal=@Url.Page("./Index","Edit",new { Id = item.Id})'>ویرایش</a>
+                            <a class="btn tbn-sm btn-danger" href="#showmodal=@Url.Page("./Index","Delete",new {Id = item.Id})">حذف</a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="modal-wrapper"></div>
+
+@section Scripts
+{
+    <script src="~/AdminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Theme/assets/js/persian-date.min.js"></script>
+    <script src="~/Theme/assets/js/persian-datepicker.min.js"></script>
+    <script src="~/AdminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+    <script src="~/AdminTheme/assets/datatables/datatables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#datatable").DataTable();
+            $(".persian-date-input").persianDatepicker({
+                autoClose: true,
+                format: "YYYY/MM/DD"
+            });
+        });
+    </script>
+}

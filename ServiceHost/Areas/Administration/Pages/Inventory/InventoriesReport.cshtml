@@ -1,0 +1,57 @@
+﻿@page
+@model ServiceHost.Areas.Administration.Pages.Inventory.InventoriesReportModel
+@{
+    ViewData["Title"] = "گزارش کامل انبار";
+}
+<table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>خرید/فروش</th>
+                            <th>نام کالا</th>
+                            <th>تاریخ عملیات</th>
+                            <th>نام کاربر</th>
+                            <th>توضیح</th>
+                            <th>شماره سفارش</th>
+                            <th>تعداد</th>
+                            <th>موجودی پیش از عملیات</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model.InventoryOperations)
+                    {
+                        <tr class="@(item.IsSold ? "bg-danger":"bg-success")">
+                            <td>
+                                @if (item.IsSold)
+                                {
+                                    <span>فروش</span>
+                                }
+                                else
+                                {
+                                    <span>خرید</span>
+
+                                }
+                            </td>
+                            <td>
+                                @item.ProductName
+                            </td>
+                            <td>
+                                @item.OperationDateTime
+                            </td>
+                            <td>
+                                @item.OperatorName
+                            </td>
+                            <td>
+                                @item.Description
+                            </td>
+                            <td>
+                                @item.OrderId
+                            </td>
+                            <td>
+                                @item.Count
+                            </td>
+                            <td>
+                                @item.CountBeforeOperation
+                            </td>
+                        </tr>
+                    }
+</table>
+

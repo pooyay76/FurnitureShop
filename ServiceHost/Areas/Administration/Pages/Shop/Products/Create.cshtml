@@ -1,0 +1,110 @@
+﻿@model ShopManagement.Application.Contracts.Product.CreateProduct;
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title">ایجاد محصول جدید</h5>
+                </div>
+                <div id="modal-body" class="modal-body">
+
+                    <form class="form-group" method="post" asp-page="./Index" asp-page-handler="Create"
+                          data-ajax="true"
+                          data-action="refresh">
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <label class="control-label" asp-for="@Model.Name">نام محصول</label>
+                                <input class="form-control" asp-for="@Model.Name" onchange="makeSlug('Name','Slug')" type="text" />
+                                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                        </div>                            
+                        <div class="col-md-6">
+
+                            <label class="control-label" asp-for="@Model.Slug">اسلاگ</label>
+                            <input class="form-control" asp-for="@Model.Slug" type="text" />
+                            <span asp-validation-for="@Model.Slug" class="text-danger"></span>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <label class="control-label" asp-for="@Model.Code">کد محصول</label>
+                                <input class="form-control" asp-for="@Model.Code" type="text" />
+                                <span asp-validation-for="@Model.Code" class="text-danger"></span>
+                            </div>
+
+                        <div class="col-md-8">
+                            <label class="control-label" asp-for="@Model.Picture">عکس</label>
+                            <input class="form-control" asp-for="@Model.Picture" type="file" />
+                            <span asp-validation-for="@Model.Picture" class="text-danger"></span>
+                        </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-7">
+
+                                <label class="control-label" asp-for="@Model.PictureAlt">توصیف عکس</label>
+                                <input class="form-control" asp-for="@Model.PictureAlt" type="text" />
+                                <span asp-validation-for="@Model.PictureAlt" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="control-label" asp-for="@Model.PictureTitle">تیتر عکس</label>
+                                <input class="form-control" asp-for="@Model.PictureTitle" type="text" />
+                                <span asp-validation-for="@Model.PictureTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+
+                                <label class="control-label" asp-for="@Model.ShortDescription">توضیحات کوتاه</label>
+                                <input class="form-control" asp-for="@Model.ShortDescription" type="text" />
+                                <span asp-validation-for="@Model.ShortDescription" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="control-label" asp-for="@Model.CategoryId"> دسته بندی محصول</label>
+                                <select class="form-control" asp-for="@Model.CategoryId" asp-items='new SelectList(Model.Categories,"Id","Name")'>
+                                    <option value="0">یک گروه را انتخاب کنید</option>
+                                </select>
+                                <span asp-validation-for="@Model.CategoryId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label" asp-for="@Model.Description">توضیحات</label>
+                                <input class="form-control" asp-for="@Model.Description" type="text" onchange="fillField('Description', 'MetaDescription')" />
+                                <span asp-validation-for="@Model.Description" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label" asp-for="@Model.MetaDescription">توضیحات متا</label>
+                                <input class="form-control" asp-for="@Model.MetaDescription" type="text" />
+                                <span asp-validation-for="@Model.MetaDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <label class="control-label" asp-for="@Model.Keywords">کلمات کلیدی</label>
+                                <input class="form-control disabled" asp-for="@Model.Keywords" type="text" />
+                                <span asp-validation-for="@Model.Keywords" class="text-danger"></span>
+
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                            <button type="submit" class="btn btn-primary">ایجاد</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>

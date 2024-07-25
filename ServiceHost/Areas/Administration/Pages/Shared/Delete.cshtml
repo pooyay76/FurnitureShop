@@ -1,0 +1,38 @@
+﻿@model long
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">حذف آیتم</h5>
+            </div>
+            <div id="modal-body" class="modal-body">
+                <div class="row">
+                 <h4>آیا عملیات حذف آیتم را تایید می کنید؟</h4>
+                </div>
+                <form class="form-group" method="post" asp-page="./Index" asp-page-handler="Delete"
+                      data-ajax="true"
+                      data-action="refresh">
+                      <input type="hidden" name="id" value="@Model" />
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <button type="button" class="btn btn-success" data-dismiss="modal">خیر</button>
+                        </div>
+
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-danger">بله</button>
+                        </div>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>

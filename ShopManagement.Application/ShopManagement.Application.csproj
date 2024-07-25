@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShopManagement.Application.Contracts\ShopManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\ShopManagement.Domain\ShopManagement.Domain.csproj" />
+    <ProjectReference Include="..\ShopManagement.Infrastructure.EfCore\ShopManagement.Infrastructure.EfCore.csproj" />
+  </ItemGroup>
+
+</Project>

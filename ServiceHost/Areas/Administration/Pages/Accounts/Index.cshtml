@@ -1,0 +1,100 @@
+﻿@page
+@model ServiceHost.Areas.Administration.Pages.Accounts.IndexModel
+@{
+    ViewData["Title"] = "حساب ها";
+}
+<link rel="stylesheet" href="~/AdminTheme/assets/datatables/jquery.dataTables.min.css" />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">جستجو در تخفیف ها</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline" role="form" method="get">
+                    <div class="form-group">
+                        <label class="control-label" asp-for="@Model.SearchModel.RoleId">نقش کاربر</label>
+                        <select class="form-control" asp-for="@Model.SearchModel.RoleId" asp-items='new SelectList(Model.Roles,"Id","Name")'>
+                            <option value="0">انتخاب نقش کاربر</option>
+                        </select>
+                        <span asp-validation-for="@Model.SearchModel.RoleId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" asp-for="@Model.SearchModel.Name"></label>
+                        <input type="text" class="form-control" placeholder="نام یا نام خانوادگی" asp-for="@Model.SearchModel.Name" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" asp-for="@Model.SearchModel.Username"></label>
+                        <input type="text" class="form-control" placeholder="نام کاربری" asp-for="@Model.SearchModel.Username" />
+
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" asp-for="@Model.SearchModel.PhoneNumber"></label>
+                        <input type="tel" class="form-control" placeholder="تلفن همراه" asp-for="@Model.SearchModel.PhoneNumber" />
+
+                    </div>
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
+                    <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel">
+    <div class="panel-heading">
+        <a class=" btn btn-success" href='#showmodal=@Url.Page("./Index","Create")'><i class="fa fa-plus"></i>&nbsp; ایجاد</a>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped" id="datatable">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>عکس</th>
+                    <th>نام</th>
+                    <th>نام کاربری</th>
+                    <th>شماره همراه</th>
+                    <th>نقش</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.ProfilePicture</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Username</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@Model.Roles.FirstOrDefault(x=>x.Id == item.RoleId).Name</td>
+                    <td>
+                        <a class="btn tbn-sm btn-warning" href='#showmodal=@Url.Page("./Index","Edit",new { Id = item.Id})'>ویرایش</a>
+                        <a class="btn tbn-sm btn-info" href='#showmodal=@Url.Page("./Index","ChangePassword",new { Id = item.Id})'>تغییر رمز عبور</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="modal-wrapper"></div>
+
+@section Scripts
+{
+    <script src="~/AdminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Theme/assets/js/persian-date.min.js"></script>
+    <script src="~/Theme/assets/js/persian-datepicker.min.js"></script>
+    <script src="~/AdminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+    <script src="~/AdminTheme/assets/datatables/datatables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#datatable").DataTable();
+            $(".persian-date-input").persianDatepicker({
+                autoClose: true,
+                format: "YYYY/MM/DD"
+            });
+        });
+    </script>
+}

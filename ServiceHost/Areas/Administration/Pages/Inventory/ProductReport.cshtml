@@ -1,0 +1,68 @@
+﻿@model IEnumerable<InventoryManagement.Application.Contracts.Inventory.InventoryOperationViewModel>
+@{
+    ViewData["Title"] = "گزارش گردش کالا";
+}
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">گزارش گردش کالا</h5>
+            </div>
+            <div id="modal-body" class="modal-body">
+
+<table class="table table-borderless">
+    <thead>
+        <tr>
+            <th>خرید/فروش</th>
+            <th>تاریخ عملیات</th>
+            <th>نام کاربر</th>
+            <th>توضیح</th>
+            <th>شماره سفارش</th>
+            <th>تعداد</th>
+            <th>موجودی پیش از عملیات</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr class="@(item.IsSold ? "bg-danger":"bg-success")">
+            <td>
+                @if (item.IsSold)
+                {
+                <span>فروش</span>
+                }
+                else
+                {
+                    <span>خرید</span>
+
+                }
+            </td>
+            <td>
+                @item.OperationDateTime
+            </td>
+            <td>
+                @item.OperatorName
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.OrderId
+            </td>
+            <td>
+                @item.Count
+            </td>
+            <td>
+                @item.CountBeforeOperation
+            </td>
+        </tr>
+    }
+</table>
+            </div>
+        </div>
+    </div>
+</div>
+
